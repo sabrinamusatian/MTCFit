@@ -6,13 +6,17 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-
-
-    <!-- Map Fragment embedded with the map object -->
-    <fragment
-        class="com.here.android.mpa.mapping.SupportMapFragment"
-        android:id="@+id/mapfragment"
+    <Button
+        android:id="@+id/start_map"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        android:text="start map"/>
+
+    <!--&lt;!&ndash; Map Fragment embedded with the map object &ndash;&gt;-->
+    <!--<fragment-->
+        <!--class="com.here.android.mpa.mapping.SupportMapFragment"-->
+        <!--android:id="@+id/mapfragment"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"/>-->
 
 </LinearLayout>
