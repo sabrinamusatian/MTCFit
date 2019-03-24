@@ -44,6 +44,7 @@
         </activity>
         <activity android:name=".MotionActivity" />
         <activity android:name=".MapActivity" />
+        <activity android:name=".RateActivity" />
 
         <meta-data
             android:name="com.here.android.maps.appid"
