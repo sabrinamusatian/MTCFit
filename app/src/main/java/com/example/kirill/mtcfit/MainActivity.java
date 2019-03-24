@@ -15,6 +15,8 @@ public class MainActivity extends Activity {
     ImageView start_map;
     ImageView rate;
     ImageView start_friends;
+    ImageView start_challange;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,8 +28,8 @@ public class MainActivity extends Activity {
                 start_map();
             }
         });
-        start_map = findViewById(R.id.rate);
-        start_map.setOnClickListener(new View.OnClickListener() {
+        rate = findViewById(R.id.rate);
+        rate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 start_rate();
@@ -38,6 +40,14 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 getFriends();
+            }
+        });
+
+        start_challange = findViewById(R.id.challenge);
+        start_challange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getChallenge();
             }
         });
     }
@@ -51,8 +61,14 @@ public class MainActivity extends Activity {
         Intent intent = new Intent(this, RateActivity.class);
         startActivity(intent);
     }
+
     public void getFriends(){
         Intent intent = new Intent(this, FriendsActivity.class);
+        startActivity(intent);
+    }
+
+    public void getChallenge(){
+        Intent intent = new Intent(this, ChallengeActivity.class);
         startActivity(intent);
     }
 }

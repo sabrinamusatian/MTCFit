@@ -25,9 +25,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".ChallengeActivity"
+            android:label="@string/title_activity_challenge"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".RunnerActivity"
             android:label="@string/title_activity_runner"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".FriendsActivity"
             android:label="@string/title_activity_friends"

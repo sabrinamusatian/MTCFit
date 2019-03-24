@@ -271,11 +271,11 @@ public class FriendsActivity extends AppCompatActivity implements PositioningMan
                                 face_change();
                             }
                         };
-                        timer.schedule(task, 4000, 250);
+                        timer.schedule(task, 200, 250);
                         map.addMapObject(point);
                         map.addMapObject(point2);
 
-                        map.setZoomLevel(map.getMaxZoomLevel() - 3);
+                        map.setZoomLevel(map.getMaxZoomLevel() - 7);
                         map.addTransformListener(FriendsActivity.this);
                         mPositioningManager = PositioningManager.getInstance();
                         mHereLocation = LocationDataSourceHERE.getInstance(

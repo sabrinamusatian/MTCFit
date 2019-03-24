@@ -243,7 +243,7 @@ public class MapActivity extends AppCompatActivity implements PositioningManager
                         map = mapFragment.getMap();
                         map.setCenter(new GeoCoordinate(59.997752, 30.291947, 0.0), Map.Animation.NONE);
 
-                        map.setZoomLevel(map.getMaxZoomLevel() - 3);
+                        map.setZoomLevel(map.getMaxZoomLevel() - 7);
                         map.addTransformListener(MapActivity.this);
                         mPositioningManager = PositioningManager.getInstance();
                         mHereLocation = LocationDataSourceHERE.getInstance(
