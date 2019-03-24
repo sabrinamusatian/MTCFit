@@ -22,21 +22,36 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 
     ImageView start_map;
+    ImageView start_friends;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        start_map = findViewById(R.id.friends);
+        start_map = findViewById(R.id.running);
         start_map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 start_map();
             }
         });
+
+        start_friends = findViewById(R.id.friends);
+        start_friends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFriends();
+            }
+        });
     }
 
     public void start_map() {
         Intent intent = new Intent(this, MapActivity.class);
+        startActivity(intent);
+    }
+
+    public void getFriends(){
+        Intent intent = new Intent(this, FriendsActivity.class);
         startActivity(intent);
     }
 }

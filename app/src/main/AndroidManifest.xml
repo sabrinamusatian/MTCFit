@@ -2,18 +2,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.kirill.mtcfit">
 
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:maxSdkVersion="22" android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission
+        android:name="android.permission.READ_PHONE_STATE"
+        android:maxSdkVersion="22" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -23,7 +25,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.example.kirill.mtcfit.MainActivity"
+            android:name=".FriendsActivity"
+            android:label="@string/title_activity_friends"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -44,7 +50,6 @@
         <meta-data
             android:name="com.here.android.maps.license.key"
             android:value="d3SrCuwAsorB9UTJYaBpN2PIFAxfZ0EYU8s5kqIJF3Tdnp0HIV0kxM9Otw+hJuIvIeVlj+dxdFOcgjJSbv4mVVwvGrA5Ufe32c8UUeb482rjqLUB4yDVJjOZDFc4DpvAsA+3EHOJ2ilMpYnSqzQy7xSKZ3nJKZYJsBjfm4CUjFnbDbr0N8cepwCU0j7vPBl9BWluEvJIramKrmFTJh/YoOHxAIvrAxGJndJdnAC+OYB9oPvm1Ikp5bX/QviuqdC/KutltM5J/rkamzCSHuOyyFqogcOMfwgi1P4Oz51etp3NuCnjD9JB0L1XjRmnZVj1j+ods9NuyvclPWh5wMt3fnFQjWGDeZJzPzH2C1F9EWQNFf5lx8EoAKfhZhIPaQCRLGFX7HpPnKpayb1DcTVC5fhQJ6KHzFdJqaEgvAwHybohRCNPQuIr3zXccflZ0jG9ajVQOrpz50AR11YYAjvU3WUF9MoQqvt2vEex6bOePP5DyBmsb0Rmdu2lLqa5ksvxLHuJGr4AlJn4sqOrMR/n1sHSXApMRrD7ysxbiu/+Jota/VxVeqJJgSSqXgLP1/K22lyRVf6zO6bsPm9x0nj3E5JRgtNr+YiBTFdOHsYdSesLbMfAfUdhkezwpqD6qr661oaeutpble7h3W+o+10GCVNAeF+JC/OuC3P6690ZGZM=" />
-
         <!--
         Developers should always provide custom values for each of {YOUR_LABEL_NAME} and {YOUR_INTENT_NAME}.
         Do not reuse HERE SDK defaults.
@@ -55,18 +60,21 @@
 
         <service
             android:name="com.here.android.mpa.service.MapService"
-            android:label="HereMapService"
-            android:exported="false">
+            android:exported="false"
+            android:label="HereMapService">
             <intent-filter>
-                <action android:name="MAPINTENT"></action>
+                <action android:name="MAPINTENT" />
             </intent-filter>
         </service>
         <!--
     Embed the HERE Positioning Service.
     For more information, see the HERE SDK Developer's Guide
--->
-        <service android:enabled="true" android:exported="false" android:name="com.here.services.internal.LocationService" android:process=":remote">
-        </service>
+        -->
+        <service
+            android:name="com.here.services.internal.LocationService"
+            android:enabled="true"
+            android:exported="false"
+            android:process=":remote"></service>
         <!--
             HERE Location boot receiver definition.
             For more information, see the HERE SDK Developer's Guide
@@ -78,16 +86,6 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <!-- <service -->
-        <!-- android:name="com.here.android.mpa.service.MapService" -->
-        <!-- android:label="MAPSERVISE" -->
-        <!-- android:exported="false"> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="{YOUR_INTENT_NAME}"></action> -->
-        <!-- </intent-filter> -->
-        <!-- </service> -->
-
-
     </application>
 
 </manifest>
