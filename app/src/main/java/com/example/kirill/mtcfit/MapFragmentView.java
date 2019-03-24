@@ -2,10 +2,16 @@ package com.example.kirill.mtcfit;
 
 import android.app.Activity;
 
+import com.here.android.mpa.common.GeoBoundingBox;
 import com.here.android.mpa.common.GeoCoordinate;
 import com.here.android.mpa.common.OnEngineInitListener;
 import com.here.android.mpa.mapping.Map;
+import com.here.android.mpa.mapping.MapObject;
 import com.here.android.mpa.mapping.SupportMapFragment;
+import com.here.android.mpa.pde.PlatformDataItem;
+import com.here.android.mpa.pde.PlatformDataItemCollection;
+import com.here.android.mpa.pde.PlatformDataRequest;
+import com.here.android.mpa.pde.PlatformDataResult;
 
 import android.support.v7.app.AppCompatActivity;
 import android.content.pm.ApplicationInfo;
@@ -13,10 +19,15 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import java.io.File;
-//import java.util.Map;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class MapFragmentView {
     private SupportMapFragment m_mapFragment;
@@ -88,5 +99,7 @@ public class MapFragmentView {
                 });
             }
         }
-    }
+   }
+
+
 }
