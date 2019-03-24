@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-public class RunnerActivity extends AppCompatActivity {
+public class ChallengeActivity extends AppCompatActivity {
 
 
     RelativeLayout start_map;
@@ -18,8 +18,8 @@ public class RunnerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_runner);
-        start_map = findViewById(R.id.newstart);
+        setContentView(R.layout.activity_challenge);
+        start_map = findViewById(R.id.challengeLav);
         start_map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
