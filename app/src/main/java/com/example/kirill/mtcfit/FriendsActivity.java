@@ -70,7 +70,12 @@ public class FriendsActivity extends AppCompatActivity implements PositioningMan
     private Map map;
     MapMarker point;
     MapMarker point2;
+    MapMarker runner;
     Timer timer;
+    Timer timer2;
+    double[] x = {60.005446, 60.004989, 60.004753};
+    double[] y = {30.319529, 30.319085, 30.318591};
+
     // map fragment embedded in this activity
     private SupportMapFragment mapFragment;
 
@@ -244,6 +249,7 @@ public class FriendsActivity extends AppCompatActivity implements PositioningMan
                         map.setCenter(new GeoCoordinate(59.997752, 30.291947, 0.0), Map.Animation.NONE);
                         point = new MapMarker();
                         point2 = new MapMarker();
+                        runner = new MapMarker();
 
                         com.here.android.mpa.common.Image image = new Image();
                         try {
@@ -257,12 +263,21 @@ public class FriendsActivity extends AppCompatActivity implements PositioningMan
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+                        com.here.android.mpa.common.Image image3 = new Image();
+                        try {
+                            image2.setImageResource(R.drawable.r1);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         point.setCoordinate(new com.here.android.mpa.common.GeoCoordinate(59.965899, 30.304310));
                         point.setDescription("otzimania");
                         point.setIcon(image);
                         point2.setCoordinate(new com.here.android.mpa.common.GeoCoordinate(59.997752, 30.291947));
                         point2.setDescription("otzimania");
                         point2.setIcon(image2);
+                        runner.setCoordinate(new com.here.android.mpa.common.GeoCoordinate(x[0], y[0]));
+                        runner.setDescription("fdsa");
+                        runner.setIcon(image3);
 
                         timer = new Timer();
                         TimerTask task = new TimerTask() {
@@ -272,8 +287,17 @@ public class FriendsActivity extends AppCompatActivity implements PositioningMan
                             }
                         };
                         timer.schedule(task, 4000, 250);
+                        timer2 = new Timer();
+                        TimerTask task2 = new TimerTask() {
+                            @Override
+                            public void run() {
+                                run_change();
+                            }
+                        };
+                        timer2.schedule(task2, 4000, 250);
                         map.addMapObject(point);
                         map.addMapObject(point2);
+                        map.addMapObject(runner);
 
                         map.setZoomLevel(map.getMaxZoomLevel() - 3);
                         map.addTransformListener(FriendsActivity.this);
@@ -413,6 +437,49 @@ public class FriendsActivity extends AppCompatActivity implements PositioningMan
             point2.setIcon(image);
         }
 
+    }
+    int it2 = 0;
+    void run_change() {
+        it2++;
+        if (it2 % 4 == 0) {
+            com.here.android.mpa.common.Image image = new Image();
+            try {
+                image.setImageResource(R.drawable.r1);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            runner.setIcon(image);
+        }
+        if (it2 % 4 == 1) {
+            com.here.android.mpa.common.Image image = new Image();
+            try {
+                image.setImageResource(R.drawable.r2);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            runner.setIcon(image);
+        }
+        if (it2 % 4 == 2) {
+            com.here.android.mpa.common.Image image = new Image();
+            try {
+                image.setImageResource(R.drawable.r3);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            runner.setIcon(image);
+        }
+        if (it2 % 4 == 3) {
+            com.here.android.mpa.common.Image image = new Image();
+            try {
+                image.setImageResource(R.drawable.r4);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            runner.setIcon(image);
+        }
+        if (it2 % 10 == 0) {
+            runner.setCoordinate(new com.here.android.mpa.common.GeoCoordinate(x[(int)(it2/10) % x.length], y[(int)(it2/10) % x.length]));
+        }
     }
 
     private void initCreateRouteButton() {
