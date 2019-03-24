@@ -8,4 +8,5 @@
     <string name="action_settings">Settings</string>
     <string name="anim_dur">100</string>
     <string name="title_activity_friends">FriendsActivity</string>
+    <string name="title_activity_runner">RunnerActivity</string>
 </resources>

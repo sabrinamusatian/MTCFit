@@ -46,7 +46,7 @@ public class MainActivity extends Activity {
     }
 
     public void start_map() {
-        Intent intent = new Intent(this, MapActivity.class);
+        Intent intent = new Intent(this, RunnerActivity.class);
         startActivity(intent);
     }
 

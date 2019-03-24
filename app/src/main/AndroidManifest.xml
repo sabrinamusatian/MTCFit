@@ -25,9 +25,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".RunnerActivity"
+            android:label="@string/title_activity_runner"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".FriendsActivity"
             android:label="@string/title_activity_friends"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -74,7 +78,7 @@
             android:name="com.here.services.internal.LocationService"
             android:enabled="true"
             android:exported="false"
-            android:process=":remote"></service>
+            android:process=":remote" />
         <!--
             HERE Location boot receiver definition.
             For more information, see the HERE SDK Developer's Guide
