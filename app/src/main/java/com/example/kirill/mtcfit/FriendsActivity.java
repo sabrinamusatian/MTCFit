@@ -53,7 +53,7 @@ import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MapActivity extends AppCompatActivity implements PositioningManager.OnPositionChangedListener, Map.OnTransformListener {
+public class FriendsActivity extends AppCompatActivity implements PositioningManager.OnPositionChangedListener, Map.OnTransformListener {
 
     // permissions request code
     private final static int REQUEST_CODE_ASK_PERMISSIONS = 1;
@@ -65,11 +65,11 @@ public class MapActivity extends AppCompatActivity implements PositioningManager
             Manifest.permission.ACCESS_NETWORK_STATE
     };
 
-    private Button m_createRouteButton;
-    private MapRoute m_mapRoute;
 
     // map embedded in the map fragment
     private Map map;
+    MapMarker point;
+    MapMarker point2;
     Timer timer;
     // map fragment embedded in this activity
     private SupportMapFragment mapFragment;
@@ -211,7 +211,7 @@ public class MapActivity extends AppCompatActivity implements PositioningManager
      * Initializes HERE Maps and HERE Positioning. Called after permission check.
      */
     private void initializeMapsAndPositioning() {
-        setContentView(R.layout.activity_map);
+        setContentView(R.layout.activity_friends);
 //        mLocationInfo = (TextView) findViewById(R.id.textViewLocationInfo);
         mapFragment = getMapFragment();
         mapFragment.setRetainInstance(false);
@@ -242,9 +242,41 @@ public class MapActivity extends AppCompatActivity implements PositioningManager
                     if (error == OnEngineInitListener.Error.NONE) {
                         map = mapFragment.getMap();
                         map.setCenter(new GeoCoordinate(59.997752, 30.291947, 0.0), Map.Animation.NONE);
+                        point = new MapMarker();
+                        point2 = new MapMarker();
+
+                        com.here.android.mpa.common.Image image = new Image();
+                        try {
+                            image.setImageResource(R.drawable.otzhimania1);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        com.here.android.mpa.common.Image image2 = new Image();
+                        try {
+                            image2.setImageResource(R.drawable.otzhimania1);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        point.setCoordinate(new com.here.android.mpa.common.GeoCoordinate(59.965899, 30.304310));
+                        point.setDescription("otzimania");
+                        point.setIcon(image);
+                        point2.setCoordinate(new com.here.android.mpa.common.GeoCoordinate(59.997752, 30.291947));
+                        point2.setDescription("otzimania");
+                        point2.setIcon(image2);
+
+                        timer = new Timer();
+                        TimerTask task = new TimerTask() {
+                            @Override
+                            public void run() {
+                                face_change();
+                            }
+                        };
+                        timer.schedule(task, 4000, 250);
+                        map.addMapObject(point);
+                        map.addMapObject(point2);
 
                         map.setZoomLevel(map.getMaxZoomLevel() - 3);
-                        map.addTransformListener(MapActivity.this);
+                        map.addTransformListener(FriendsActivity.this);
                         mPositioningManager = PositioningManager.getInstance();
                         mHereLocation = LocationDataSourceHERE.getInstance(
                                 new StatusListener() {
@@ -299,21 +331,21 @@ public class MapActivity extends AppCompatActivity implements PositioningManager
                                     }
                                 });
                         if (mHereLocation == null) {
-                            Toast.makeText(MapActivity.this, "LocationDataSourceHERE.getInstance(): failed, exiting", Toast.LENGTH_LONG).show();
+                            Toast.makeText(FriendsActivity.this, "LocationDataSourceHERE.getInstance(): failed, exiting", Toast.LENGTH_LONG).show();
                             finish();
                         }
                         mPositioningManager.setDataSource(mHereLocation);
                         mPositioningManager.addListener(new WeakReference<PositioningManager.OnPositionChangedListener>(
-                                MapActivity.this));
+                                FriendsActivity.this));
                         // start position updates, accepting GPS, network or indoor positions
                         if (mPositioningManager.start(PositioningManager.LocationMethod.GPS_NETWORK_INDOOR)) {
                             mapFragment.getPositionIndicator().setVisible(true);
                         } else {
-                            Toast.makeText(MapActivity.this, "PositioningManager.start: failed, exiting", Toast.LENGTH_LONG).show();
+                            Toast.makeText(FriendsActivity.this, "PositioningManager.start: failed, exiting", Toast.LENGTH_LONG).show();
                             finish();
                         }
                     } else {
-                        Toast.makeText(MapActivity.this, "onEngineInitializationCompleted: error: " + error + ", exiting", Toast.LENGTH_LONG).show();
+                        Toast.makeText(FriendsActivity.this, "onEngineInitializationCompleted: error: " + error + ", exiting", Toast.LENGTH_LONG).show();
                         finish();
                     }
                 }
@@ -368,6 +400,8 @@ public class MapActivity extends AppCompatActivity implements PositioningManager
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            point.setIcon(image);
+            point2.setIcon(image);
         } else {
             com.here.android.mpa.common.Image image = new Image();
             try {
@@ -375,6 +409,8 @@ public class MapActivity extends AppCompatActivity implements PositioningManager
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            point.setIcon(image);
+            point2.setIcon(image);
         }
 
     }
@@ -382,117 +418,5 @@ public class MapActivity extends AppCompatActivity implements PositioningManager
     private void initCreateRouteButton() {
 
     }
-    private void createRoute() {
-        /* Initialize a CoreRouter */
-        CoreRouter coreRouter = new CoreRouter();
 
-        /* Initialize a RoutePlan */
-        RoutePlan routePlan = new RoutePlan();
-
-        /*
-         * Initialize a RouteOption.HERE SDK allow users to define their own parameters for the
-         * route calculation,including transport modes,route types and route restrictions etc.Please
-         * refer to API doc for full list of APIs
-         */
-        RouteOptions routeOptions = new RouteOptions();
-        /* Other transport modes are also available e.g Pedestrian */
-        routeOptions.setTransportMode(RouteOptions.TransportMode.PEDESTRIAN);
-        /* Disable highway in this route. */
-        routeOptions.setHighwaysAllowed(false);
-        /* Calculate the shortest route available. */
-        routeOptions.setRouteType(RouteOptions.Type.FASTEST);
-        /* Calculate 1 route. */
-        routeOptions.setRouteCount(1);
-        /* Finally set the route option */
-        routePlan.setRouteOptions(routeOptions);
-
-        RouteWaypoint startPoint = new RouteWaypoint(new GeoCoordinate(59.944142, 30.367970));
-        RouteWaypoint destination = new RouteWaypoint(new GeoCoordinate(59.943923, 30.377485));
-        RouteWaypoint midPoint = new RouteWaypoint(new GeoCoordinate(59.947995, 30.377839));
-        RouteWaypoint midPoint2 = new RouteWaypoint(new GeoCoordinate(59.948158, 30.368717));
-
-
-        /* Add both waypoints to the route plan */
-        routePlan.addWaypoint(startPoint);
-        routePlan.addWaypoint(destination);
-        routePlan.addWaypoint(midPoint);
-        routePlan.addWaypoint(midPoint2);
-        routePlan.addWaypoint(startPoint);
-
-        /* Trigger the route calculation,results will be called back via the listener */
-        coreRouter.calculateRoute(routePlan,
-                new Router.Listener<List<RouteResult>, RoutingError>() {
-                    @Override
-                    public void onProgress(int i) {
-                        /* The calculation progress can be retrieved in this callback. */
-                    }
-
-                    @Override
-                    public void onCalculateRouteFinished(List<RouteResult> routeResults,
-                                                         RoutingError routingError) {
-                        /* Calculation is done. Let's handle the result */
-                        if (routingError == RoutingError.NONE) {
-                            if (routeResults.get(0).getRoute() != null) {
-                                /* Create a MapRoute so that it can be placed on the map */
-                                m_mapRoute = new MapRoute(routeResults.get(0).getRoute());
-
-                                /* Show the maneuver number on top of the route */
-                                m_mapRoute.setManeuverNumberVisible(true);
-
-                                /* Add the MapRoute to the map */
-                                map.addMapObject(m_mapRoute);
-
-                                /*
-                                 * We may also want to make sure the map view is orientated properly
-                                 * so the entire route can be easily seen.
-                                 */
-                                GeoBoundingBox gbb = routeResults.get(0).getRoute()
-                                        .getBoundingBox();
-                                map.zoomTo(gbb, Map.Animation.NONE,
-                                        Map.MOVE_PRESERVE_ORIENTATION);
-                            } else {
-                                Toast.makeText(MapActivity.this,
-                                        "Error:route results returned is not valid",
-                                        Toast.LENGTH_LONG).show();
-                            }
-                        } else {
-                            Toast.makeText(MapActivity.this,
-                                    "Error:route calculation returned error code: " + routingError,
-                                    Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-    }
-
-    public void getSpeechInput(View view) {
-
-        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(intent, 10);
-        } else {
-            Toast.makeText(this, "Your Device Don't Support Speech Input", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        switch (requestCode) {
-            case 10:
-                if (resultCode == RESULT_OK && data != null) {
-                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    if (map != null && m_mapRoute != null) {
-                        map.removeMapObject(m_mapRoute);
-                        m_mapRoute = null;
-                    } else {
-                        createRoute();
-                    }
-                }
-                break;
-        }
-    }
 }
