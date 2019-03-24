@@ -10,4 +10,5 @@
     <string name="title_activity_friends">FriendsActivity</string>
     <string name="title_activity_runner">RunnerActivity</string>
     <string name="title_activity_challenge">ChallengeActivity</string>
+    <string name="title_activity_statistics">StatisticsActivity</string>
 </resources>

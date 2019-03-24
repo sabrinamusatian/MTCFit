@@ -17,6 +17,7 @@ public class MainActivity extends Activity {
     ImageView start_friends;
     ImageView start_challange;
 
+    ImageView stat_challange;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +51,14 @@ public class MainActivity extends Activity {
                 getChallenge();
             }
         });
+
+        stat_challange = findViewById(R.id.stat);
+        stat_challange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getStat();
+            }
+        });
     }
 
     public void start_map() {
@@ -69,6 +78,11 @@ public class MainActivity extends Activity {
 
     public void getChallenge(){
         Intent intent = new Intent(this, ChallengeActivity.class);
+        startActivity(intent);
+    }
+
+    public void getStat(){
+        Intent intent = new Intent(this, StatisticsActivity.class);
         startActivity(intent);
     }
 }
